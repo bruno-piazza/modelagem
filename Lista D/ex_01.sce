@@ -34,9 +34,9 @@ u = (Qei-sqrt(rho*g*(ho+hi)/R))*ones(t);
 // Simulando o sistema usando o comando csim:
 [y,x]=csim(u,t,tanque,x0);
 
-// Simulacao de não linear sistema linear
 
-//xnlinear = ode(x0,t(1),t,list(entrada,nlinear))
+// Simulacao do sistema não linear
+xnlinear = ode(x0,t(1),t,list(entrada,nlinear))
 
 
 scf(1)
