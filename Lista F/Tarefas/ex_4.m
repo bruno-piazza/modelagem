@@ -1,9 +1,9 @@
 % Exercício 4
 
 % Parâmetros
-m = 1;
-c = 1;
-k = 1;
+m = 100;
+c = 500;
+k = 1000;
 
 % Matrizes
 A = [0 1; -1000*k/m -c/m];
