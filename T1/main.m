@@ -5,6 +5,9 @@ close
 A = readmatrix("A_l.txt");
 B = readmatrix("B_l.txt");
 C = readmatrix("C_l.txt");
+D_col = size(B);
+D_row = size(C);
+D = zeros(D_row(1),D_col(2))
 
 t = linspace(0,5,10000);
 
