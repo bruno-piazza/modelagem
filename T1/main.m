@@ -12,6 +12,9 @@ t = linspace(0,50,10000);
 phi_eq = 0.01*pi/6;
 psi_eq = 1*pi/6;
 theta_eq = 1*pi/6;
+D_col = size(B);
+D_row = size(C);
+D = zeros(D_row(1),D_col(2))
 
 
 
