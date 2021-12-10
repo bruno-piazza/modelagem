@@ -2,11 +2,11 @@ clear all
 clc
 close all
 
-%% Definição da análise
+%% Analysis
 code = 1;
 % 1. Transition matrix
 
-%% Dados do sistema
+%% System Data
 % System matrices
 A = readmatrix("A_l.txt");
 B = readmatrix("B_l.txt");
