@@ -14,7 +14,7 @@ C = readmatrix("C_l.txt");
 D_col = size(B);D_row = size(C);
 D = zeros(D_row(1),D_col(2));
 
-% Condições iniciais
+% Initial conditions
 x0 = [0 0.5 0 0 0 0 0 0 0];
 u0 = [0 0 0];
 
