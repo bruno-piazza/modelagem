@@ -24,9 +24,7 @@ t = linspace(0,50,10000);
 %% 1. Transition matrix
 if code == 1
     [Phi_dt,Gamma_dt,x] = transition_matrix(A,B,t,x0',u0');
-    Phi_dt = clean_matrix(Phi_dt,10);
-    Gamma_dt = clean_matrix(Gamma_dt,10);
-    P_tex = latex(sym(Phi_dt));
-    G_tex = latex(sym(Gamma_dt));
+    P_tex = latex(sym(round(Phi_dt,8)));
+    G_tex = latex(sym(round(Gamma_dt,8)));
 end
 
