@@ -1,6 +1,0 @@
-Derivative[1][hx][t] == (ea1*Kt)/Ra + ((-B - (Kb*Kt)/Ra)*hx[t])/Irr
-Derivative[1][hy][t] == (ea2*Kt)/Ra + ((-B - (Kb*Kt)/Ra)*hy[t])/Irr
-Derivative[1][hz][t] == (ea3*Kt)/Ra + ((-B - (Kb*Kt)/Ra)*hz[t])/Irr
-I1*(-(Sin[ϕ[t]]*Derivative[1][θ][t]*Derivative[1][ϕ][t]) + Cos[θ[t]]*Sin[ϕ[t]]*Derivative[1][θ][t]*Derivative[1][ψ][t] + Cos[ϕ[t]]*Sin[θ[t]]*Derivative[1][ϕ][t]*Derivative[1][ψ][t] + Cos[ϕ[t]]*Derivative[2][θ][t] + Sin[θ[t]]*Sin[ϕ[t]]*Derivative[2][ψ][t]) == -Derivative[1][hx][t] + (I2 - I3)*(Derivative[1][ϕ][t] + Cos[θ[t]]*Derivative[1][ψ][t])*(-(Sin[ϕ[t]]*Derivative[1][θ][t]) + Cos[ϕ[t]]*Sin[θ[t]]*Derivative[1][ψ][t])
-I2*(-(Cos[ϕ[t]]*Derivative[1][θ][t]*Derivative[1][ϕ][t]) + Cos[θ[t]]*Cos[ϕ[t]]*Derivative[1][θ][t]*Derivative[1][ψ][t] - Sin[θ[t]]*Sin[ϕ[t]]*Derivative[1][ϕ][t]*Derivative[1][ψ][t] - Sin[ϕ[t]]*Derivative[2][θ][t] + Cos[ϕ[t]]*Sin[θ[t]]*Derivative[2][ψ][t]) == -Derivative[1][hy][t] + (-I1 + I3)*(Derivative[1][ϕ][t] + Cos[θ[t]]*Derivative[1][ψ][t])*(Cos[ϕ[t]]*Derivative[1][θ][t] + Sin[θ[t]]*Sin[ϕ[t]]*Derivative[1][ψ][t])
-I3*(-(Sin[θ[t]]*Derivative[1][θ][t]*Derivative[1][ψ][t]) + Derivative[2][ϕ][t] + Cos[θ[t]]*Derivative[2][ψ][t]) == -Derivative[1][hz][t] + (I1 - I2)*(-(Sin[ϕ[t]]*Derivative[1][θ][t]) + Cos[ϕ[t]]*Sin[θ[t]]*Derivative[1][ψ][t])*(Cos[ϕ[t]]*Derivative[1][θ][t] + Sin[θ[t]]*Sin[ϕ[t]]*Derivative[1][ψ][t])
