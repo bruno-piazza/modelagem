@@ -38,12 +38,12 @@ if code == 2
     TFM3_latex = latex(TFM(:,3));
 end
 
-%% 3. Simulation
+%% 3. Plot: inputs
 if code == 3
     x0 = [0.01*pi/6 1*pi/6 1*pi/6 0 0 0 0 0 0];
     u1 = zeros(length(t),1);
     u2 = zeros(length(t),1);
     u3 = zeros(length(t),1);
     u = [u1 u2 u3];
-    [y_lin,y_nlin,t] = sys_sim(A,B,C,D,x0,u,t);
+    [y_lin,t,x_lib] = linear_sim(A,B,C,D,x0,u,t);
 end

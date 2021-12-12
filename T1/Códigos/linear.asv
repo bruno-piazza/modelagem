@@ -1,0 +1,13 @@
+function [x] = linear(A,B,C,D,u,t)
+    sys = ss(A,B,C,D);
+   
+    %Valores não nulos para o equilíbrio
+    phi_eq = 0.01*pi/6;
+    psi_eq = 1*pi/6;
+    theta_eq = 1*pi/6;
+    
+    [y,t,x] = lsim(res,u,t,x0);
+    phi = x(:,1) + phi_eq;
+    psi = x(:,2) + psi_eq;
+    theta = x(:,3) + theta_eq;
+end
