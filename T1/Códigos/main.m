@@ -2,60 +2,48 @@ clear all
 clc
 close all
 
+%% Analysis
+code = 3;
+% 1. Transition matrix
+% 2. Transfer matrix
+% 3. Results
+
+%% System Data
+% System matrices
 A = readmatrix("A_l.txt");
 B = readmatrix("B_l.txt");
 C = readmatrix("C_l.txt");
-D_col = size(B);
-D_row = size(C);
-D = zeros(D_row(1),D_col(2));
+D = zeros(size(C,1),size(B,2));
 
-res = ss(A,B,C,[]);
+% Initial conditions
+x0 = [0.01*pi/6 1*pi/6 1*pi/6 0 0 0 0 0 0];
+% u0 = [0 0 0];
 
-t = linspace(0,50,10000);
+% Time vector
+t = linspace(0,20,10000);
 
-phi_eq = 0.01*pi/6;
-psi_eq = 1*pi/6;
-theta_eq = 1*pi/6;
+%% 1. Transition matrix
+if code == 1
+    [Phi_dt,Gamma_dt,x] = transition_matrix(A,B,t,x0',u0');
+    P_tex = latex(sym(round(Phi_dt,8)));
+    G_tex = latex(sym(round(Gamma_dt,8)));
+end
 
+%% 2. Transfer matrix
+if code == 2
+    n_round = 10;
+    TFM = tf_matrix(A,B,C,D,n_round);
+    TFM1_latex = latex(TFM(:,1));
+    TFM2_latex = latex(TFM(:,2));
+    TFM3_latex = latex(TFM(:,3));
+end
 
-
-
-x0 = [0 0.5 0 0 0 0 0 0 0];
-u1 = zeros(length(t),1);
-u2 = zeros(length(t),1);
-u3 = zeros(length(t),1);
-
-% for i=1:500
-%     u2(i,1) = 12;
-% end
-
-% for i=1:5
-%     u2(i,1) = 5;
-% end
-
-% for i=1:5000
-%     u2(i,1) = 0.001*sin(t(i));
-% end
-
-u = [u1 u2 u3];
-
-
-
-[y,t,x] = lsim(res,u,t,x0);
-phi = x(:,1) + phi_eq;
-psi = x(:,2) + psi_eq;
-theta = x(:,3) + theta_eq;
-
-figure(1)
-hold on
-%plot(t,phi)
-plot(t,psi)
-%plot(t,theta)
-
-figure()
-plot(t,y(:,5))
-
-[b,a] = ss2tf(A,B,C,D,1);
-% bode(res)
-
-%[A,B1,C,D] = x_dot(t,x,y,u);
+%% 3. Simulation
+if code == 3
+    x0 = [0.01*pi/6 1*pi/6 1*pi/6 0 0 0 0 0 0];
+    u1 = zeros(length(t),1);
+    u2 = zeros(length(t),1);
+    u3 = zeros(length(t),1);
+    u = [u1 u2 u3];
+    [y_lin,y_nlin,t] = sys_sim(A,B,C,D,x0,u,t);
+end
