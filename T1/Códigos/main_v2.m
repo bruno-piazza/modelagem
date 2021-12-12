@@ -3,8 +3,9 @@ clc
 close all
 
 %% Analysis
-code = 1;
+code = 2;
 % 1. Transition matrix
+% 2. Transfer matrix
 
 %% System Data
 % System matrices
@@ -28,3 +29,11 @@ if code == 1
     G_tex = latex(sym(round(Gamma_dt,8)));
 end
 
+%% 2. Transfer matrix
+if code == 2
+    n_round = 10;
+    TFM = tf_matrix(A,B,C,D,n_round);
+    TFM1_latex = latex(TFM(:,1));
+    TFM2_latex = latex(TFM(:,2));
+    TFM3_latex = latex(TFM(:,3));
+end
