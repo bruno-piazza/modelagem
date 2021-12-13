@@ -42,7 +42,7 @@ hx_eq = 0;
 hy_eq = 0;
 hz_eq = 0;
 
-x_eq = [phi_eq psi_eq theta_eq phip_eq psip_eq thetap_eq hx_eq hy_eq hz_eq];
+x_eq = [phi_eq phi_eq];
 x0_lin = [delta_phi delta_psi delta_theta delta_phip delta_psip delta_thetap delta_hx delta_hy delta_hz];
 x0_nlin = [phi_eq+delta_phi psi_eq+delta_psi theta_eq+delta_theta phip_eq+delta_phip psip_eq+delta_psip...
            thetap_eq+delta_thetap hx_eq+delta_hx hy_eq+delta_hy hz_eq+delta_hz];
@@ -69,5 +69,5 @@ if code == 3
     tf = [10*step 0 0]; %Tempo final
     u = u_selector(mag,ti,tf,t);
   
-    [y_lin,y_nlin,t] = sys_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t,mag,ti,tf);
+    [y_lin,y_nlin,t] = sys_sim(A,B,C,D,x0_lin,x0_nlin,u,t,mag,ti,tf);
 end

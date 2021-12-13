@@ -1,6 +1,6 @@
-function [y_lin,y_nonlin,t] = sys_sim(A,B,C,D,x0lin,x0nlin,u,t,mag,ti,tf)
+function [y_lin,y_nonlin,t] = sys_sim(A,B,C,D,x0lin,x0nlin,x_eq,u,t,mag,ti,tf)
 
-    [y_lin,t,x_lin] = linear_sim(A,B,C,D,x0lin,u,t);
+    [y_lin,t,x_lin] = linear_sim(A,B,C,D,x0lin,x_eq,u,t);
     [y_nonlin,t,x_nonlin] = nonlinear_sim(x0nlin,t,mag,ti,tf);
     
     figure(1)
