@@ -27,7 +27,7 @@ delta_theta = 0;
 delta_phip = 0;
 delta_psip = 0;
 delta_thetap = 0;
-delta_hx = 0;
+delta_hx = 10^-3;
 delta_hy = 0;
 delta_hz = 0;
 
@@ -64,9 +64,9 @@ end
 
 %% 3. Simulation
 if code == 3
-    mag= [.01 0 0]; %Magnitude do sinal de entrada
+    mag= [0 0 0]; %Magnitude do sinal de entrada
     ti = [0 0 0]; %Tempo incial 
-    tf = [10*step 0 0]; %Tempo final
+    tf = [0 0 0]; %Tempo final
     u = u_selector(mag,ti,tf,t);
   
     [y_lin,y_nlin,t] = sys_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t,mag,ti,tf);
