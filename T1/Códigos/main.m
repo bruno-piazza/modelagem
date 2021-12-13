@@ -62,7 +62,7 @@ if code == 2
     TFM3_latex = latex(TFM(:,3));
 end
 
-%% 3. Simulation
+%% 3. Results
 if code == 3
     mag= [0 0 0]; %Magnitude do sinal de entrada
     ti = [0 0 0]; %Tempo incial 
