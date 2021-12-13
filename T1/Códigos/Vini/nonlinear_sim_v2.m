@@ -1,4 +1,4 @@
-function [y_nonlin,t,x_nonlin] = nonlinear_sim(x0,t,mag,ti,tf)
+function [y_nonlin,t,x_nonlin] = nonlinear_sim(x0,u,t)
 
     kt = 11.3*10^-3;
     kb = kt;
@@ -9,8 +9,8 @@ function [y_nonlin,t,x_nonlin] = nonlinear_sim(x0,t,mag,ti,tf)
     I2 = 0.0399361;
     I3 = 0.00496109;
     params = [kt,kb,Ra,b,Irr,I1,I2,I3];
-        
+    
     %Integração 
-    [time,x_nonlin] = ode45(@(t,x)x_dot(t,x,params,mag,ti,tf),t,x0);
+    [time,x_nonlin] = ode23(@(t,x)x_dot(t,x,u,params),t,x0);
     y_nonlin = x_nonlin(:,1:6);
 end

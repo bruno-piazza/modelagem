@@ -1,5 +1,5 @@
-function dx = x_dot(t,x,u,params)
-    
+function dx = x_dot(t,x,params,mag,ti,tf)
+
     kt = params(1);
     kb = params(2);
     Ra = params(3);
@@ -19,9 +19,24 @@ function dx = x_dot(t,x,u,params)
     hy = x(8);
     hz = x(9);
 
-    ea1 = u(1);
-    ea2 = u(2);
-    ea3 = u(3);
+    if t>=ti(1) && t<=tf(1)
+        u = mag;
+        ea1 = u(1);
+    else
+        ea1 = 0;
+    end
+    if t>=ti(2) && t<=tf(2)
+        u = mag;
+        ea2 = u(2);
+    else
+        ea2 = 0;
+    end
+    if t>=ti(3) && t<=tf(3)
+        u = mag;
+        ea3 = u(3);
+    else
+        ea3 = 0;
+    end
 
     a = zeros(6,6);
     g = zeros(6,1);
