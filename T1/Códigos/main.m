@@ -20,8 +20,9 @@ x0 = [0.01*pi/6 1*pi/6 1*pi/6 0 0 0 0 0 0];
 % u0 = [0 0 0];
 
 % Time vector
-t = linspace(0,20,10000);
-
+%t = linspace(0,20,10000);
+step = 0.001;
+t = 0:step:2;
 %% 1. Transition matrix
 if code == 1
     [Phi_dt,Gamma_dt,x] = transition_matrix(A,B,t,x0',u0');
@@ -40,10 +41,12 @@ end
 
 %% 3. Simulation
 if code == 3
-    x0 = [0.01*pi/6 1*pi/6 1*pi/6 0 0 0 0 0 0];
-    u1 = zeros(length(t),1);
-    u2 = zeros(length(t),1);
-    u3 = zeros(length(t),1);
-    u = [u1 u2 u3];
-    [y_lin,y_nlin,t] = sys_sim(A,B,C,D,x0,u,t);
+    x0nlin = [0.01*pi/6 1*pi/6 1*pi/6 0 0 0 0 0 0];
+    x0lin = [0 0 0 0 0 0 0 0 0];
+    mag= [.01 0 0]; %Magnitude do sinal de entrada
+    ti = [0 0 0]; %Tempo incial 
+    tf = [10*step 0 0]; %Tempo final
+    u = u_selector(mag,ti,tf,t);
+  
+    [y_lin,y_nlin,t] = sys_sim(A,B,C,D,x0lin,x0nlin,u,t,mag,ti,tf);
 end

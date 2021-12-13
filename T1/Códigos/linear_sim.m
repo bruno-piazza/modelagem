@@ -7,9 +7,9 @@ function [y_lin,t,x_lin] = linear_sim(A,B,C,D,x0,u,t)
     theta_eq = 1*pi/6;
     
     [y_lin,t,x_lin] = lsim(sys,u,t,x0);
-    y_lin(1,:) = y_lin(1,:) + phi_eq;
-    y_lin(2,:) = y_lin(2,:) + psi_eq;
-    y_lin(3,:) = y_lin(3,:) + theta_eq;
+    y_lin(:,1) = y_lin(:,1) + ones(size(y_lin(:,1)))*phi_eq;
+    y_lin(:,2) = y_lin(:,2) + ones(size(y_lin(:,2)))*psi_eq;
+    y_lin(:,3) = y_lin(:,3) + theta_eq;
     
 %     figure(1)
 %     plot(t,y_lin(:,1),'linewidth',1.5)
