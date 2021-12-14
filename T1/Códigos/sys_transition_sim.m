@@ -1,4 +1,4 @@
-function [y_lin,x,t] = sys_transition_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t,mag,ti,tf)
+function [y_lin,x,t] = sys_transition_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t)
 
     [y_lin,t,x_lin] = linear_sim(A,B,C,D,x0_lin,x_eq,u,t);
     [Phi_dt,Gamma_dt,x] = transition_matrix(A,B,t,x0_nlin',u');

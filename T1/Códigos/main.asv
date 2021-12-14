@@ -70,6 +70,7 @@ x0_nlin = [phi_eq+delta_phi psi_eq+delta_psi theta_eq+delta_theta phip_eq+delta_
 if code == 1
     % Para obter a matriz de função de transferência, basta analisar a
     % a variável simbólica TFM.
+    
     n_round = 10;
     TFM = tf_matrix(A,B,C,D,n_round);
     TFM1_latex = latex(TFM(:,1));
@@ -79,8 +80,8 @@ end
 
 %% 2. Diagramas de Bode
 if code == 2
-    
     % Para plotar os diagramas de Bode do sistema, basta definir 'code = 3'.
+    
     bode_plot(A,B,C,D)
 
 end
@@ -88,7 +89,6 @@ end
 
 %% 3. Simulações
 if code == 3
-      
     % Os gráficos plotados são definidos na função sys_sim. Para qualquer
     % variação, sugere-se utilizar as saídas [y_lin,y_nlin,t] da função 
     % @sys_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t,mag,ti,tf).
@@ -102,8 +102,6 @@ if code == 4
     % (Gamma), basta analisar as variáveis [Phi_dt,Gamma_dt].
     
     [Phi_dt,Gamma_dt,x] = transition_matrix(A,B,t,x0_nlin',u');
-    [y_lin,x,t] = sys_transition_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t,mag,ti,tf);
-    
-    P_tex = latex(sym(round(Phi_dt,8)));
-    G_tex = latex(sym(round(Gamma_dt,8)));
+    [y_lin] = sys_transition_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t);
+
 end

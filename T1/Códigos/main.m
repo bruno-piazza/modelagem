@@ -4,12 +4,13 @@ close all
 
 %% Análise
 % Para simular uma função, atribua um valor para a variável "code" conforme
-% a enumeração lista abaixo
+% a enumeração listada abaixo
 
 % 1. Matriz de funções de transferência
 % 2. Diagramas de Bode
 % 3. Simulações
-% 4. Matriz de transição e termos forçantes - simulação e comparação com modelo linear (extra)
+% 4. Matriz de transição e termos forçantes - simulação e comparação com 
+%    modelo linear (extra)
 
 code = 4;
 
@@ -38,7 +39,6 @@ delta_hy = 0;
 delta_hz = 0;
 
 %% Vetor de entradas
-
 % - Para definir um degrau, basta inserir uma valor não nulo para uma das
 % entradas e um intervalo de tempo significativo.
 
@@ -83,9 +83,7 @@ if code == 2
     % Para plotar os diagramas de Bode do sistema, basta definir 'code = 3'.
     
     bode_plot(A,B,C,D)
-
 end
-
 
 %% 3. Simulações
 if code == 3
@@ -102,6 +100,5 @@ if code == 4
     % (Gamma), basta analisar as variáveis [Phi_dt,Gamma_dt].
     
     [Phi_dt,Gamma_dt,x] = transition_matrix(A,B,t,x0_nlin',u');
-    [y_lin,x,t] = sys_transition_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t,mag,ti,tf);
-
+    [y_lin,x,t] = sys_transition_sim(A,B,C,D,x0_lin,x0_nlin,x_eq,u,t);
 end
