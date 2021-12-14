@@ -11,7 +11,7 @@ close all
 % 3. Diagramas de Bode
 % 4. Simulações
 
-code = 4;
+code = 1;
 
 %% Dados do sistema
 % Matrizes do espaço de estados
@@ -77,6 +77,7 @@ end
 if code == 3
     
     % Para plotar os diagramas de Bode do sistema, basta definir 'code = 3'.
+    
     bode_plot(A,B,C,D)
 
 end
@@ -91,7 +92,7 @@ if code == 4
     % - Para definir um impulso, basta inserir uma valor não nulo para uma
     % das entradas e um intervalo de tempo infinitesimal.
     
-    mag= [0.1 0 0]; %Magnitude do sinal de entrada
+    mag= [0 0 0]; %Magnitude do sinal de entrada
     ti = [0 0 0]; %Tempo incial 
     tf = [0 0 0]; %Tempo final
     u = u_selector(mag,ti,tf,t);
