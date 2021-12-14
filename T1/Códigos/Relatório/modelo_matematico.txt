@@ -1,0 +1,133 @@
+In[292]:= ClearAll["Global`*"]
+(*Equações - Modelagem Dinâmica*)
+\[Omega]x[t_]:=\[Psi]'[t]*Sin[\[Theta][t]]*Sin[\[Phi][t]]+\[Theta]'[t]*Cos[\[Phi][t]];
+\[Omega]y[t_]:=\[Psi]'[t]*Sin[\[Theta][t]]*Cos[\[Phi][t]]-\[Theta]'[t]*Sin[\[Phi][t]];
+\[Omega]z[t_]:=\[Psi]'[t]*Cos[\[Theta][t]]+\[Phi]'[t];
+
+eqs:={hx'[t]==-(B+Kt*Kb/Ra)*hx[t]/Irr+Kt*ea1/Ra,
+hy'[t]==-(B+Kt*Kb/Ra)*hy[t]/Irr+Kt*ea2/Ra,
+hz'[t]==-(B+Kt*Kb/Ra)*hz[t]/Irr+Kt*ea3/Ra,
+I3*\[Omega]x'[t]==-hx'[t]+(I2-I1)*\[Omega]y[t]*\[Omega]z[t],
+I2*\[Omega]y'[t]==-hy'[t]+(I1-I3)*\[Omega]x[t]*\[Omega]z[t],
+I1*\[Omega]z'[t]==-hz'[t]+(I3-I2)*\[Omega]x[t]*\[Omega]y[t]};
+
+sol=Solve[eqs,{\[Psi]''[t],\[Phi]''[t],\[Theta]''[t],hx'[t],hy'[t],hz'[t]}];
+
+(* Definição do Espaço de Estados *)
+f1=\[Phi]'[t];
+f2=\[Psi]'[t];
+f3=\[Theta]'[t];
+f4=\[Phi]''[t]/.sol[[1]];
+f5=\[Psi]''[t]/.sol[[1]];
+f6=\[Theta]''[t]/.sol[[1]];
+f7=hx'[t]/.sol[[1]];
+f8=hy'[t]/.sol[[1]];
+f9=hz'[t]/.sol[[1]];
+f={f1,f2,f3,f4,f5,f6,f7,f8,f9};
+
+g1=\[Phi][t];
+g2=\[Psi][t];
+g3=\[Theta][t];
+g4=\[Phi]'[t];
+g5=\[Psi]'[t];
+g6=\[Theta]'[t];
+g={g1,g2,g3,g4,g5,g6};
+
+x={\[Phi][t],\[Psi][t],\[Theta][t],\[Phi]'[t],\[Psi]'[t],\[Theta]'[t],hx[t],hy[t],hz[t]};
+u={ea1,ea2,ea3};
+
+A=ConstantArray[0,{Length[f],Length[x]}];
+
+B1=ConstantArray[0,{Length[f],Length[u]}];
+
+C1=ConstantArray[0,{Length[g],Length[x]}];
+
+For[i=1,i<Length[f]+1,i++,
+For[j=1,j<Length[x]+1,j++,
+A[[i,j]]=D[f[[i]],x[[j]]]
+]]
+A;
+For[i=1,i<Length[f]+1,i++,
+For[j=1,j<Length[u]+1,j++,
+B1[[i,j]]=D[f[[i]],u[[j]]]
+]]
+B1;
+For[i=1,i<Length[g]+1,i++,
+For[j=1,j<Length[x]+1,j++,
+C1[[i,j]]=D[g[[i]],x[[j]]]
+]]
+C1;
+
+(*Linearização do Sistema de Equações*)
+Alin=ConstantArray[0,{Length[f],Length[x]}]; 
+Blin=ConstantArray[0,{Length[f],Length[u]}]; 
+
+For[i=1,i<= Length[f],i++,For[j=1 ,j<=Length[x] ,j++ ,Alin[[i,j]]=D[f[[i]],x[[j]]]/.{\[Phi][t]->\[Phi]0,\[Psi][t]->\[Psi]0,\[Theta][t]->\[Theta]0,\[Phi]'[t]->d\[Phi]0,\[Psi]'[t]->d\[Psi]0,\[Theta]'[t]->d\[Theta]0,hx[t]->hx0,hy[t]->hy0,hz[t]->hz0,ea1->ea10,ea2->ea20,ea3->ea30}]]
+
+For[i=1,i<=Length[f],i++,For[j=1 ,j<=Length[u],j++ ,Blin[[i,j]]= D[f[[i]],u[[j]]]/.{\[Phi][t]->\[Phi]0,\[Psi][t]->\[Psi]0,\[Theta][t]->\[Theta]0,\[Phi]'[t]->d\[Phi]0,\[Psi]'[t]->d\[Psi]0,\[Theta]'[t]->d\[Theta]0,hx[t]->hx0,hy[t]->hy0,hz[t]->hz0,ea1->ea10,ea2->ea20,ea3->ea30}]]
+
+(*Constantes*)
+Kt=11.3*10^(-3);
+Kb=Kt;
+Ra=23.9;
+B=291.8*10^(-9);
+Irr=1.66*10^(-6);
+IBRF={{0.04,0.0001,0.0006},{0.0001,0.04,-0.001},{0.0006,-0.001,0.005}};
+Ip=Eigenvalues[IBRF];
+I1=Ip[[1]];
+I2=Ip[[2]];
+I3=Ip[[3]];
+
+(* Ponto de operação *)
+d\[Phi]0=0;
+d\[Theta]0=0;
+d\[Psi]0=0;
+\[Phi]0=0.01*Pi/6;
+\[Theta]0=1*Pi/6;
+\[Psi]0=1*Pi/6;
+solaux=sol/.{\[Phi][t]->\[Phi]0,\[Psi][t]->\[Psi]0,\[Theta][t]->\[Theta]0,\[Phi]'[t]->d\[Phi]0,\[Psi]'[t]->d\[Psi]0,\[Theta]'[t]->d\[Theta]0,hx[t]->hx0,hy[t]->hy0,hz[t]->hz0,ea1->ea10,ea2->ea20,ea3->ea30};
+
+b1=\[Psi]''[t]/.solaux[[1]];
+b2=\[Theta]''[t]/.solaux[[1]];
+b3=\[Phi]''[t]/.solaux[[1]];
+b4=hx'[t]/.solaux[[1]];
+b5=hy'[t]/.solaux[[1]];
+b6=hz'[t]/.solaux[[1]];
+
+eqs2:={b1==0,b2==0,b3==0};
+FullSimplify[eqs2];
+res=Solve[eqs2,{ea10,ea20,ea30}];
+hx0=0*Irr;
+hy0=0*Irr;
+hz0=0*Irr;
+
+ea10=ea10/.res[[1]];
+ea20=ea20/.res[[1]];
+ea30=ea30/.res[[1]];
+
+(* Matrizes do Sistema Linearizado *)
+
+Alin//MatrixForm
+Blin//MatrixForm
+Out[362]//MatrixForm= (0	0	0	1	0	0	0	0	0
+0	0	0	0	1	0	0	0	0
+0	0	0	0	0	1	0	0	0
+0.	0	0.	0.	0.	0.	-6.20477	-147.209	84.6391
+0.	0	0.	0.	0.	0.	7.16466	169.982	0
+0.	0	0.	0.	0.	0.	684.168	-0.445017	0
+0	0	0	0	0	0	-3.39426	0	0
+0	0	0	0	0	0	0	-3.39426	0
+0	0	0	0	0	0	0	0	-3.39426
+
+)
+Out[363]//MatrixForm= (0	0	0
+0	0	0
+0	0	0
+0.000864293	0.0205054	-0.0117898
+-0.000997999	-0.0236776	0
+-0.095301	0.0000619885	0
+0.000472803	0	0
+0	0.000472803	0
+0	0	0.000472803
+
+)
