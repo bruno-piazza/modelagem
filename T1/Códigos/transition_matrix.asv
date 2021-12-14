@@ -20,6 +20,6 @@ function [Phi_dt,Gamma_dt,x] = transition_matrix(A,B,t,x0,u)
     x = zeros(dim_A,n);
     x(:,1) = x0;
     for i=1:n-1
-        x(:,i+1) = Phi_dt * x(:,i) + M_forc*u(:,i);
+        x(:,i+1) = Phi_dt * x(:,i) + M_forc*u(i);
     end
 end
